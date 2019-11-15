@@ -1,0 +1,15 @@
+{
+	"name": "nacho/crawr",
+	"description": "Web UI to download manga raws ",
+	"type": "project",
+	"autoload": {
+		"psr-4": {
+			"Downloader\\": "downloader/"
+		}
+	},
+	"require": {
+		"guzzlehttp/guzzle": "~6.0",
+		"paquettg/php-html-parser": "dev-master",
+		"php-defer/php-defer": "^4.0"
+	}
+}
