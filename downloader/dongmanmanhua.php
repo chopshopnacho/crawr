@@ -51,7 +51,7 @@ class Dongmanmanhua implements Downloader
   public function middleware(string $url): callable
   {
     return function (callable $handler): callable {
-      return function (RequestInterface $req, array $options) use ($handler) {
+      return function (RequestInterface $req, array $options) use ($handler): callable {
         $req = $req->withHeader('Referer', 'https://www.dongmanmanhua.cn/');
         return $handler($req, $options);
       };
