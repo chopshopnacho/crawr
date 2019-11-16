@@ -43,6 +43,7 @@ class Generic implements Downloader
   public function __construct()
   {
     $this->downloaders = [
+      new Bomtoon,
       new Dongmanmanhua,
       new Kuaikanmanhua,
     ];
