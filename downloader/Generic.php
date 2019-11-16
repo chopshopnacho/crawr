@@ -50,7 +50,16 @@ class Generic implements Downloader
 
   public function __toString(): string
   {
-    return 'Generic';
+    switch (count($this->downloaders)) {
+      case 0:
+        return 'General';
+      case 1:
+        return (string) reset($this->downloaders);
+      default:
+        $head = $this->downloaders;
+        $tail = array_pop($head);
+        return sprintf('%s and %s', implode(', ', $head), $tail);
+    }
   }
 
   private function getDownloader(string $url): ?Downloader

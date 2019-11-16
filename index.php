@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Downloader\Generic;
 
 require_once __DIR__ . '/vendor/autoload.php';
-
-$downloaders = (new Generic)->getDownloaders();
 ?>
 <!doctype html>
 <html>
@@ -31,6 +29,7 @@ $downloaders = (new Generic)->getDownloaders();
 
     body {
       padding: 1rem;
+      background: url(yuyang.png) no-repeat bottom right;
     }
 
     .container {
@@ -56,7 +55,7 @@ $downloaders = (new Generic)->getDownloaders();
   <div class="container">
     <section class="topic">
       <h2 id="about">Download</h2>
-      <p>Download raw Manhuas and Manhwas from <?php echo implode(', ', $downloaders); ?>.</p>
+      <p>Download raw Manhuas and Manhwas from <?php echo new Generic; ?>.</p>
     </section>
 
     <form method="post" action="download.php">
