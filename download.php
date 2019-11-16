@@ -17,9 +17,10 @@ if (!filter_var($_POST['url'], FILTER_VALIDATE_URL)) {
 }
 $url = $_POST['url'];
 
-$file = sprintf('./cache/%s.jpg', hash('sha256', $url));
+$file = sprintf('./cache/%s.png', hash('sha256', $url));
 if (file_exists($file)) {
-  header('Content-Type: image/jpeg');
+  header('Content-Type: image/png');
+  header('Content-disposition: inline; filename=chapter.png');
   readfile($file);
   exit;
 }
@@ -50,9 +51,10 @@ array_walk($images, function ($image) use ($im) {
 }, $images);
 $im->resetIterator();
 $chapter = $im->appendImages(true);
-$chapter->setImageFormat('jpeg');
+$chapter->setImageFormat('png');
 $chapter->writeImage($file);
 
-header('Content-Type: image/jpeg');
+header('Content-Type: image/png');
+header('Content-disposition: inline; filename=chapter.png');
 readfile($file);
 exit;
