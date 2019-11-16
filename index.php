@@ -29,7 +29,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 
     body {
       padding: 1rem;
-      background: url(yuyang.png) no-repeat bottom right;
     }
 
     .container {
