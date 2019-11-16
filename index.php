@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Downloader\Generic;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/downloader/downloader.php';
-require_once __DIR__ . '/downloader/dongmanmanhua.php';
 
 $downloaders = (new Generic)->getDownloaders();
 ?>

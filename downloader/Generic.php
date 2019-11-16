@@ -44,6 +44,7 @@ class Generic implements Downloader
   {
     $this->downloaders = [
       new Dongmanmanhua,
+      new Kuaikanmanhua,
     ];
   }
 
@@ -52,12 +53,12 @@ class Generic implements Downloader
     return 'Generic';
   }
 
-  private function getDownloader(string $url): Downloader
+  private function getDownloader(string $url): ?Downloader
   {
     $downloaders = array_filter($this->getDownloaders(), function ($downloader) use ($url) {
       return $downloader->match($url);
     });
-    return reset($downloaders);
+    return reset($downloaders) ?: null;
   }
 
   public function getDownloaders(): array

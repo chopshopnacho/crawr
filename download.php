@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/downloader/downloader.php';
-require_once __DIR__ . '/downloader/dongmanmanhua.php';
 
 use Downloader\Generic;
 use GuzzleHttp\Client;
@@ -51,7 +49,6 @@ array_walk($images, function ($image) use ($im) {
   $im->addImage($image);
 }, $images);
 $im->resetIterator();
-
 $chapter = $im->appendImages(true);
 $chapter->setImageFormat('jpeg');
 $chapter->writeImage($file);
