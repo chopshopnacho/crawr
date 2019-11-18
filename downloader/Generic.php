@@ -12,6 +12,7 @@ class Generic implements Downloader
     Bomtoon::class,
     Dongmanmanhua::class,
     Kuaikanmanhua::class,
+    MrBlue::class,
   ];
 
   public function __toString(): string
