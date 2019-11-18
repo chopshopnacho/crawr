@@ -26,16 +26,19 @@ if (file_exists($file)) {
 }
 
 $downloader = new Generic;
-if (!$downloader->match($url)) {
+if (!$downloader::match($url)) {
   exit('url not supported');
 }
 
-$stack = new HandlerStack();
+$stack = new HandlerStack;
 $stack->setHandler(new CurlHandler);
-$stack->push($downloader->middleware($url));
+$stack->push($downloader::middleware($url));
 $client = new Client(['handler' => $stack]);
 
-$images = $downloader->files($client, $url);
+$images = $downloader::files($client, $url);
+if ($images === null) {
+  exit('pages not found');
+}
 $images = array_map(function ($image) use ($client) {
   $file = tempnam(sys_get_temp_dir(), '');
   $client->request('GET', $image, ['sink' => $file]);
@@ -45,9 +48,9 @@ $images = array_map(function ($image) {
   return new Imagick($image);
 }, $images);
 
-$im = new Imagick;
-array_walk($images, function ($image) use ($im) {
-  $im->addImage($image);
+$chapter = new Imagick;
+array_walk($images, function ($image) use ($chapter) {
+  $chapter->addImage($image);
 }, $images);
 $im->resetIterator();
 $chapter = $im->appendImages(true);

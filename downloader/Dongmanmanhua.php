@@ -11,18 +11,12 @@ use Psr\Http\Message\RequestInterface;
 
 class Dongmanmanhua implements Downloader
 {
-  public function __toString(): string
-  {
-    return 'Dongmanmanhua';
-  }
-
-  public function match(string $url): bool
+  public static function match(string $url): bool
   {
     $url = parse_url($url);
     if ($url['host'] !== 'www.dongmanmanhua.cn') {
       return false;
     }
-    $params = [];
     parse_str($url['query'], $params);
     if (!isset($params['title_no']) || !isset($params['episode_no'])) {
       return false;
@@ -30,14 +24,13 @@ class Dongmanmanhua implements Downloader
     return true;
   }
 
-  public function files(ClientInterface $client, string $url): array
+  public static function files(ClientInterface $client, string $url): ?array
   {
     $res = $client->get($url);
     if ($res->getStatusCode() !== 200) {
       return null;
     }
-    $dom = new Dom;
-    $dom->load((string) $res->getBody());
+    $dom = (new Dom)->load((string) $res->getBody());
     $images = $dom->find('img._images')->toArray();
     $images = array_filter($images, function (HtmlNode $image) {
       return $image->hasAttribute('data-url');
@@ -48,7 +41,7 @@ class Dongmanmanhua implements Downloader
     return $images;
   }
 
-  public function middleware(string $url): callable
+  public static function middleware(string $url): callable
   {
     return function (callable $handler): callable {
       return function (RequestInterface $req, array $options) use ($handler) {

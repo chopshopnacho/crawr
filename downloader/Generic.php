@@ -8,56 +8,52 @@ use GuzzleHttp\ClientInterface;
 
 class Generic implements Downloader
 {
-  private $downloaders = [];
-
-  public function __construct()
-  {
-    $this->downloaders = [
-      new Bomtoon,
-      new Dongmanmanhua,
-      new Kuaikanmanhua,
-    ];
-  }
+  private static $downloaders = [
+    Bomtoon::class,
+    Dongmanmanhua::class,
+    Kuaikanmanhua::class,
+  ];
 
   public function __toString(): string
   {
-    switch (count($this->downloaders)) {
+    switch (count(self::$downloaders)) {
       case 0:
         return 'Generic';
       case 1:
-        return (string) reset($this->downloaders);
+        return (string) reset(self::$downloaders);
       default:
-        $head = $this->downloaders;
+        $head = self::$downloaders;
         $tail = array_pop($head);
         return implode(', ', $head) . ' and ' . $tail;
     }
   }
 
-  private function getDownloader(string $url): ?Downloader
+  private static function getDownloader(string $url): ?Downloader
   {
-    $downloaders = array_filter($this->getDownloaders(), function ($downloader) use ($url) {
-      return $downloader->match($url);
+    $downloaders = array_filter(self::getDownloaders(), function ($downloader) use ($url) {
+      return $downloader::match($url);
     });
-    return reset($downloaders) ?: null;
+    $downloader = reset($downloaders);
+    return new $downloader ?: null;
   }
 
-  public function getDownloaders(): array
+  public static function getDownloaders(): array
   {
-    return $this->downloaders;
+    return self::$downloaders;
   }
 
-  public function match(string $url): bool
+  public static function match(string $url): bool
   {
-    return !empty($this->getDownloader($url));
+    return !empty(self::getDownloader($url));
   }
 
-  public function files(ClientInterface $client, string $url): array
+  public static function files(ClientInterface $client, string $url): ?array
   {
-    return $this->getDownloader($url)->files($client, $url);
+    return self::getDownloader($url)->files($client, $url);
   }
 
-  public function middleware(string $url): callable
+  public static function middleware(string $url): callable
   {
-    return $this->getDownloader($url)->middleware($url);
+    return self::getDownloader($url)->middleware($url);
   }
 }

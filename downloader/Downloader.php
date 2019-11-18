@@ -8,24 +8,22 @@ use GuzzleHttp\ClientInterface;
 
 interface Downloader
 {
-  public function __toString(): string;
-
   /**
    * Return true if a Downloader feels capable of handling the given URL.
-   * 
+   *
    * @param string $url Request URL.
    * @return bool
    */
-  public function match(string $url): bool;
+  public static function match(string $url): bool;
 
   /**
    * Return a list of URLs to images.
    *
    * @param ClientInterface $client The client used to request the list.
    * @param string $url Request URL.
-   * @return ?array An array of URLs.
+   * @return ?array An array of URLs or null.
    */
-  public function files(ClientInterface $client, string $url): array;
+  public static function files(ClientInterface $client, string $url): ?array;
 
   /**
    * Middleware used to modify the request according to the downloaders needs.
@@ -33,5 +31,5 @@ interface Downloader
    * @param string $url Request URL.
    * @return callable The middleware.
    */
-  public function middleware(string $url): callable;
+  public static function middleware(string $url): callable;
 }
