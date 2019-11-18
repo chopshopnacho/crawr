@@ -17,16 +17,16 @@ class MrBlue implements Downloader
   }
 
   /**
-   * Decrypt (or unshuffle) "encrypted" data used in MrBlues frontend. This
-   * usually contains an Base64 encoded JSON object describing the manhwa and
+   * Decrypt (or "shuffle") "encrypted" data found in MrBlues frontend. This
+   * usually contains a Base64 encoded JSON object describing the manhwa and
    * its chapters. Algorithm and key can be found in JavaScript.
    *
-   * TODO: The output can be at most strlen($input)-1 characters smaller than
+   * TODO: The output might be at most strlen($input)-1 characters smaller than
    * the input. We need to remove the added garbage data to successfully decode
    * the underlying JSON object.
    *
-   * @param string $input Shuffled input
-   * @return string Unshuffled output.
+   * @param string $input Encrypted input
+   * @return string Decrypted output.
    */
   private static function shuffle(string $input): string
   {
