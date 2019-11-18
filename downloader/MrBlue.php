@@ -89,7 +89,7 @@ class MrBlue implements Downloader
     }
     $cyphertext = end($cyphertext);
     $plaintext = self::shuffle($cyphertext);
-    $json = base64_decode($plaintext, false, 4, JSON_INVALID_UTF8_IGNORE);
+    $json = base64_decode($plaintext, true);
     if ($json === false) {
       return null;
     }
