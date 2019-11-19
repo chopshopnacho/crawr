@@ -21,10 +21,6 @@ class MrBlue implements Downloader
    * usually contains a Base64 encoded JSON object describing the manhwa and
    * its chapters. Algorithm and key can be found in JavaScript.
    *
-   * TODO: The output might be at most strlen($input)-1 characters smaller than
-   * the input. We need to remove the added garbage data to successfully decode
-   * the underlying JSON object.
-   *
    * @param string $input Encrypted input
    * @return string Decrypted output.
    */
@@ -33,9 +29,12 @@ class MrBlue implements Downloader
     $output = $input;
     $key = [3, 6, 5, 7, 0, 2, 4, 1];
     for ($i = 0; $i < strlen($input); $i++) {
-      $j = floor($i / count($key)) * count($key);
-      $j += $key[$i % count($key)];
-      $output[$j] = $input[$i];
+      $j = floor($i / count($key));
+      if (strlen($output) >= ($j + 1) * count($key)) {
+        $j *= count($key);
+        $j += $key[$i % count($key)];
+        $output[$j] = $input[$i];
+      }
     }
     return $output;
   }
