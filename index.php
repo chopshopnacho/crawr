@@ -57,7 +57,7 @@ require_once __DIR__ . '/vendor/autoload.php';
       <p>Download raw Manhuas and Manhwas from <?php echo new Generic; ?>.</p>
     </section>
 
-    <form method="post" action="download.php">
+    <form method="post" action="/download.php">
       <div class="nes-container is-light is-rounded">
         <div class="nes-field">
           <label for="url">URL</label>
