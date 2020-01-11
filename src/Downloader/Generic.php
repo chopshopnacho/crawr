@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Downloader;
+namespace Crawr\Downloader;
 
 use GuzzleHttp\ClientInterface;
 
@@ -23,9 +23,13 @@ class Generic implements Downloader
       case 1:
         return (string) reset(self::$downloaders);
       default:
-        $head = self::$downloaders;
-        $tail = array_pop($head);
-        return implode(', ', $head) . ' and ' . $tail;
+        $downloaders = array_map('strval', self::$downloaders);
+        $downloaders = array_map(function ($downloader) {
+          return explode('\\', $downloader);
+        }, $downloaders);
+        $downloaders = array_map('end', $downloaders);
+        $last = array_pop($downloaders);
+        return implode(', ', $downloaders) . ' and ' . $last;
     }
   }
 

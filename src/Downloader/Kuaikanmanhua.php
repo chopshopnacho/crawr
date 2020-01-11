@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Downloader;
+namespace Crawr\Downloader;
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\RequestInterface;
@@ -20,7 +20,7 @@ class Kuaikanmanhua implements Downloader
 
   public static function files(ClientInterface $client, string $url): ?array
   {
-    $res = $client->get($url);
+    $res = $client->request('GET', $url);
     if ($res->getStatusCode() !== 200) {
       return null;
     }
@@ -29,10 +29,9 @@ class Kuaikanmanhua implements Downloader
     if (!$found) {
       return null;
     }
-    $files = array_map(function ($file) {
-      return json_decode('"' . $file . '"');
+    return array_map(function ($file) {
+      json_decode('"' . $file . '"');
     }, $files[1]);
-    return $files;
   }
 
   public static function middleware(string $url): callable

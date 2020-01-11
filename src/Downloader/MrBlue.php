@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Downloader;
+namespace Crawr\Downloader;
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 
 class MrBlue implements Downloader
 {
-  private static $regex = '/^https?:\/\/www\.mrblue\.com\/viewer\/view\/(.+?)\/([0-9]+)/';
+  private static $regex = '/^https?:\/\/www\.mrblue\.com\/viewer\/view\/(?P<pid>.+?)\/(?P<chapter>[0-9]+)/';
 
   public static function match(string $url): bool
   {
@@ -71,13 +71,12 @@ class MrBlue implements Downloader
 
   public static function files(ClientInterface $client, string $url): ?array
   {
-    $found = preg_match(self::$regex, $url, $chapter);
+    $found = preg_match(self::$regex, $url, $parts);
     if (!$found) {
       return null;
     }
-    list(, $pid,  $chapter) = $chapter;
 
-    $res = $client->get($url);
+    $res = $client->request('GET', $url);
     if ($res->getStatusCode() !== 200) {
       return null;
     }
@@ -96,7 +95,7 @@ class MrBlue implements Downloader
     if ($body === null) {
       return null;
     }
-    return self::images($body, (int) $chapter);
+    return self::images($body, (int) $parts['chapter']);
   }
 
   public static function middleware(string $url): callable
