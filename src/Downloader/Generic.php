@@ -9,6 +9,7 @@ use GuzzleHttp\ClientInterface;
 class Generic implements Downloader
 {
   private static $downloaders = [
+    Ac::class,
     Bomtoon::class,
     Dongmanmanhua::class,
     Kuaikanmanhua::class,
