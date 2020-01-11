@@ -4,6 +4,7 @@ Web UI to download manhua and manhwa.
 
 ## Supported sites
 
+- Ac
 - Bomtoon
 - Dongmanmanhua
 - Kuaikanmanhua
