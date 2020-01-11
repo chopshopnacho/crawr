@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Downloader\Generic;
+use Crawr\Downloader\Generic;
+use Crawr\Package\Image;
+use Crawr\Package\Zip;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
@@ -16,6 +18,18 @@ if (!filter_var($_POST['url'], FILTER_VALIDATE_URL)) {
   exit('invalid url provided');
 }
 $url = $_POST['url'];
+
+switch ($_POST['format']) {
+  case 'image':
+    $package = new Image;
+    break;
+  case 'zip':
+    $package = new Zip;
+    break;
+  default:
+    exit('format not available');
+    break;
+}
 
 $downloader = new Generic;
 if (!$downloader::match($url)) {
@@ -31,24 +45,15 @@ $images = $downloader::files($client, $url);
 if ($images === null) {
   exit('pages not found');
 }
-$images = array_map(function ($image) use ($client) {
+
+foreach ($images as $i => $image) {
   $file = tempnam(sys_get_temp_dir(), '');
   $client->request('GET', $image, ['sink' => $file]);
-  return $file;
-}, $images);
-$images = array_map(function ($image) {
-  return new Imagick($image);
-}, $images);
+  // TODO: We shouldn't just assume its PNG.
+  $package->add(sprintf('%03d.png', $i), $file);
+}
 
-$chapter = new Imagick;
-array_walk($images, function ($image) use ($chapter) {
-  $chapter->addImage($image);
-}, $images);
-$chapter->resetIterator();
-$chapter = $chapter->appendImages(true);
-$format = $chapter->getImageHeight() > 65500 ? 'png' : 'jpeg';
-$chapter->setImageFormat($format);
-
-header('Content-Type: image/' . $format);
-header('Content-disposition: inline; filename=chapter.' . $format);
-exit($chapter->getImagesBlob());
+header('Content-Type: ' . $package->contentType());
+header('Content-disposition: inline; filename=chapter.' . $package->extension());
+echo $package->get();
+exit;

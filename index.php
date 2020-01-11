@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Downloader\Generic;
+use Crawr\Downloader\Generic;
 
 require_once __DIR__ . '/vendor/autoload.php';
 ?>
@@ -63,6 +63,16 @@ require_once __DIR__ . '/vendor/autoload.php';
           <label for="url">URL</label>
           <input type="text" class="nes-input" id="url" name="url" placeholder="https://">
         </div>
+
+        <label>
+          <input type="radio" class="nes-radio" name="format" value="image" checked>
+          <span>Image</span>
+        </label>
+        <label>
+          <input type="radio" class="nes-radio" name="format" value="zip">
+          <span>ZIP</span>
+        </label>
+
         <div class="nes-field is-right">
           <button type="submit" class="nes-btn is-primary">Download</button>
         </div>
