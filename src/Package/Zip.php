@@ -23,10 +23,10 @@ class Zip implements Package
     return $this->archive->addFile($path, $name);
   }
 
-  public function get(): string
+  public function echo(): void
   {
     $this->archive->close();
-    return file_get_contents($this->file);
+    readfile($this->file);
   }
 
   public function extension(): string

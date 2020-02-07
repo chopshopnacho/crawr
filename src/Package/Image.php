@@ -20,12 +20,12 @@ class Image implements Package
     return $this->image->addImage($image);
   }
 
-  public function get(): string
+  public function echo(): void
   {
     $this->image->resetIterator();
     $this->image = $this->image->appendImages(true);
     $this->image->setImageFormat($this->extension());
-    return $this->image->getImagesBlob();
+    echo $this->image->getImagesBlob();
   }
 
   public function extension(): string

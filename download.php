@@ -55,5 +55,4 @@ foreach ($images as $i => $image) {
 
 header('Content-Type: ' . $package->contentType());
 header('Content-disposition: inline; filename=chapter.' . $package->extension());
-echo $package->get();
-exit;
+$package->echo();

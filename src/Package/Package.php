@@ -20,7 +20,7 @@ interface Package
    *
    * @return string Blob.
    */
-  public function get(): string;
+  public function echo(): void;
 
   /**
    * Return the file extension.
