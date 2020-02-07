@@ -13,6 +13,7 @@ class Generic implements Downloader
     Bomtoon::class,
     Dongmanmanhua::class,
     Kuaikanmanhua::class,
+    Manman::class,
     MrBlue::class,
   ];
 
