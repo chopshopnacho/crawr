@@ -15,6 +15,7 @@ class Generic implements Downloader
     Kuaikanmanhua::class,
     Manman::class,
     MrBlue::class,
+    Toonkor::class,
   ];
 
   public function __toString(): string
