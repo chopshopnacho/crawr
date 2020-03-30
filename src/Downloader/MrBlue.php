@@ -13,7 +13,7 @@ class MrBlue implements Downloader
 
   public static function match(string $url): bool
   {
-    return preg_match(self::$regex, $url) !== false;
+    return (bool) preg_match(self::$regex, $url);
   }
 
   /**
