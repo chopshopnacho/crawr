@@ -8,8 +8,9 @@ Web UI to download manhua and manhwa.
 - Bomtoon
 - Dongmanmanhua
 - Kuaikanmanhua
-- Manman (only free chapters)
-- MrBlue (only free chapters)
+- Manman
+- MrBlue
+- Toonkor
 
 ## Usage
 
