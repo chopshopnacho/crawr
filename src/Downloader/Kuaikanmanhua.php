@@ -30,7 +30,7 @@ class Kuaikanmanhua implements Downloader
       return null;
     }
     return array_map(function ($file) {
-      json_decode('"' . $file . '"');
+      return json_decode('"' . $file . '"');
     }, $files[1]);
   }
 
