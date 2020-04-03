@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:7.4-apache
 WORKDIR /var/www/html
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN apt-get update \

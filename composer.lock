@@ -201,21 +201,25 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/paquettg/php-html-parser.git",
-                "reference": "d1000936350fed2cb6c54058890d2d19c5ccba4f"
+                "reference": "668c770fc5724ea3f15b8791435f054835be8d5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paquettg/php-html-parser/zipball/d1000936350fed2cb6c54058890d2d19c5ccba4f",
-                "reference": "d1000936350fed2cb6c54058890d2d19c5ccba4f",
+                "url": "https://api.github.com/repos/paquettg/php-html-parser/zipball/668c770fc5724ea3f15b8791435f054835be8d5e",
+                "reference": "668c770fc5724ea3f15b8791435f054835be8d5e",
                 "shasum": ""
             },
             "require": {
+                "ext-curl": "*",
                 "ext-mbstring": "*",
+                "ext-zlib": "*",
                 "paquettg/string-encode": "~1.0.0",
                 "php": ">=7.1"
             },
             "require-dev": {
+                "infection/infection": "^0.13.4",
                 "mockery/mockery": "^1.2",
+                "phan/phan": "^2.4",
                 "php-coveralls/php-coveralls": "^2.1",
                 "phpunit/phpunit": "^7.5.1"
             },
@@ -243,7 +247,7 @@
                 "html",
                 "parser"
             ],
-            "time": "2019-08-18T18:27:45+00:00"
+            "time": "2020-01-20T12:59:15+00:00"
         },
         {
             "name": "paquettg/string-encode",
@@ -293,16 +297,16 @@
         },
         {
             "name": "php-defer/php-defer",
-            "version": "v4.0.0",
+            "version": "v4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-defer/php-defer.git",
-                "reference": "63747a103847b4bc9a534ee3e5f133b653d01a89"
+                "reference": "d062af553910ae32ce52c726bb0c26518f61d672"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-defer/php-defer/zipball/63747a103847b4bc9a534ee3e5f133b653d01a89",
-                "reference": "63747a103847b4bc9a534ee3e5f133b653d01a89",
+                "url": "https://api.github.com/repos/php-defer/php-defer/zipball/d062af553910ae32ce52c726bb0c26518f61d672",
+                "reference": "d062af553910ae32ce52c726bb0c26518f61d672",
                 "shasum": ""
             },
             "require": {
@@ -332,7 +336,7 @@
                 "defer",
                 "golang"
             ],
-            "time": "2019-10-21T17:11:24+00:00"
+            "time": "2020-02-23T22:31:17+00:00"
         },
         {
             "name": "psr/http-message",

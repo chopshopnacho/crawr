@@ -18,6 +18,11 @@ class Zip implements Package
     $this->archive->open($this->file, \ZipArchive::CREATE);
   }
 
+  public function __destruct()
+  {
+    unlink($this->file);
+  }
+
   public function add(string $name, string $path): bool
   {
     return $this->archive->addFile($path, $name);

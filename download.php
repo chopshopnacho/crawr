@@ -41,14 +41,15 @@ $stack->setHandler(new CurlHandler);
 $stack->push($downloader::middleware($url));
 $client = new Client(['handler' => $stack]);
 
-$images = $downloader::files($client, $url);
-if ($images === null) {
+$urls = $downloader::files($client, $url);
+if ($urls === null) {
   exit('pages not found');
 }
 
-foreach ($images as $i => $image) {
+foreach ($urls as $i => $url) {
   $file = tempnam(sys_get_temp_dir(), '');
-  $client->request('GET', $image, ['sink' => $file]);
+  defer($_, fn () => unlink($file));
+  $client->request('GET', $url, ['sink' => $file]);
   // TODO: We shouldn't just assume its PNG.
   $package->add(sprintf('%03d.png', $i), $file);
 }
